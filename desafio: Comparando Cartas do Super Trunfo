@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+
+// Estrutura da carta Super Trunfo
+typedef struct {
+    char estado[20];
+    char codigo[5];
+    char nomeCidade[50];
+    int populacao;
+    float areaKm2;
+    float pib;
+    int pontosTuristicos;
+    float densidadePopulacional;
+    float pibPerCapita;
+} Carta;
+
+// Função para calcular atributos derivados
+void calcularAtributos(Carta *c) {
+    c->densidadePopulacional = c->populacao / c->areaKm2;
+    c->pibPerCapita = c->pib / c->populacao;
+}
+
+int main() {
+    // Cadastro fixo de duas cartas (pré-definidas)
+    Carta carta1 = {"SÃO PAULO", "A01", "SÃO PAULO", 12300000, 1521.0, 750000000.0, 200};
+    Carta carta2 = {"RIO DE JANEIRO", "A02", "RIO DE JANEIRO", 6000000, 1182.3, 400000000.0, 120};
+
+    // Calcular densidade e PIB per capita para cada carta
+    calcularAtributos(&carta1);
+    calcularAtributos(&carta2);
+
+    // Escolha do atributo para comparação (direto no código)
+    // Opções: populacao, areaKm2, pib, densidadePopulacional, pibPerCapita
+    // Aqui vamos comparar pela POPULAÇÃO
+    printf("=== Comparação de cartas (Atributo: População) ===\n\n");
+
+    printf("Carta 1 - %s (%s): %d\n", carta1.nomeCidade, carta1.estado, carta1.populacao);
+    printf("Carta 2 - %s (%s): %d\n\n", carta2.nomeCidade, carta2.estado, carta2.populacao);
+
+    // Comparação com if/else
+    if (carta1.populacao > carta2.populacao) {
+        printf("Resultado: Carta 1 (%s) venceu!\n", carta1.nomeCidade);
+    } else if (carta2.populacao > carta1.populacao) {
+        printf("Resultado: Carta 2 (%s) venceu!\n", carta2.nomeCidade);
+    } else {
+        printf("Resultado: Empate!\n");
+    }
+
+    return 0;
+}
