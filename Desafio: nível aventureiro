@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <string.h>
+
+// Estrutura da carta Super Trunfo
+typedef struct {
+    char nomePais[50];
+    int populacao;
+    float areaKm2;
+    float pib;
+    int pontosTuristicos;
+    float densidadeDemografica;
+} Carta;
+
+// Função para calcular densidade demográfica
+void calcularDensidade(Carta *c) {
+    c->densidadeDemografica = c->populacao / c->areaKm2;
+}
+
+// Função para exibir resultado da comparação
+void exibirResultado(char *atributo, char *pais1, char *pais2, float valor1, float valor2, int vencedor) {
+    printf("\n=== Comparação de Cartas (Atributo: %s) ===\n", atributo);
+    printf("%s: %.2f\n", pais1, valor1);
+    printf("%s: %.2f\n", pais2, valor2);
+
+    if (vencedor == 1) {
+        printf("Resultado: %s venceu!\n", pais1);
+    } else if (vencedor == 2) {
+        printf("Resultado: %s venceu!\n", pais2);
+    } else {
+        printf("Resultado: Empate!\n");
+    }
+}
+
+int main() {
+    // Duas cartas pré-definidas
+    Carta carta1 = {"BRASIL", 214000000, 8516000.0, 2200000000.0, 150};
+    Carta carta2 = {"ARGENTINA", 46000000, 2780000.0, 500000000.0, 80};
+
+    // Calcula densidade para ambas
+    calcularDensidade(&carta1);
+    calcularDensidade(&carta2);
+
+    int opcao;
+    printf("=== SUPER TRUNFO - Comparação de Países ===\n");
+    printf("Escolha o atributo para comparar:\n");
+    printf("1 - População\n");
+    printf("2 - Área\n");
+    printf("3 - PIB\n");
+    printf("4 - Pontos Turísticos\n");
+    printf("5 - Densidade Demográfica\n");
+    printf("Opção: ");
+    scanf("%d", &opcao);
+
+    switch (opcao) {
+        case 1: // População
+            if (carta1.populacao > carta2.populacao)
+                exibirResultado("População", carta1.nomePais, carta2.nomePais, carta1.populacao, carta2.populacao, 1);
+            else if (carta2.populacao > carta1.populacao)
+                exibirResultado("População", carta1.nomePais, carta2.nomePais, carta1.populacao, carta2.populacao, 2);
+            else
+                exibirResultado("População", carta1.nomePais, carta2.nomePais, carta1.populacao, carta2.populacao, 0);
+            break;
+
+        case 2: // Área
+            if (carta1.areaKm2 > carta2.areaKm2)
+                exibirResultado("Área", carta1.nomePais, carta2.nomePais, carta1.areaKm2, carta2.areaKm2, 1);
+            else if (carta2.areaKm2 > carta1.areaKm2)
+                exibirResultado("Área", carta1.nomePais, carta2.nomePais, carta1.areaKm2, carta2.areaKm2, 2);
+            else
+                exibirResultado("Área", carta1.nomePais, carta2.nomePais, carta1.areaKm2, carta2.areaKm2, 0);
+            break;
+
+        case 3: // PIB
+            if (carta1.pib > carta2.pib)
+                exibirResultado("PIB", carta1.nomePais, carta2.nomePais, carta1.pib, carta2.pib, 1);
+            else if (carta2.pib > carta1.pib)
+                exibirResultado("PIB", carta1.nomePais, carta2.nomePais, carta1.pib, carta2.pib, 2);
+            else
+                exibirResultado("PIB", carta1.nomePais, carta2.nomePais, carta1.pib, carta2.pib, 0);
+            break;
+
+        case 4: // Pontos Turísticos
+            if (carta1.pontosTuristicos > carta2.pontosTuristicos)
+                exibirResultado("Pontos Turísticos", carta1.nomePais, carta2.nomePais, carta1.pontosTuristicos, carta2.pontosTuristicos, 1);
+            else if (carta2.pontosTuristicos > carta1.pontosTuristicos)
+                exibirResultado("Pontos Turísticos", carta1.nomePais, carta2.nomePais, carta1.pontosTuristicos, carta2.pontosTuristicos, 2);
+            else
+                exibirResultado("Pontos Turísticos", carta1.nomePais, carta2.nomePais, carta1.pontosTuristicos, carta2.pontosTuristicos, 0);
+            break;
+
+        case 5: // Densidade Demográfica (menor vence)
+            if (carta1.densidadeDemografica < carta2.densidadeDemografica)
+                exibirResultado("Densidade Demográfica", carta1.nomePais, carta2.nomePais, carta1.densidadeDemografica, carta2.densidadeDemografica, 1);
+            else if (carta2.densidadeDemografica < carta1.densidadeDemografica)
+                exibirResultado("Densidade Demográfica", carta1.nomePais, carta2.nomePais, carta1.densidadeDemografica, carta2.densidadeDemografica, 2);
+            else
+                exibirResultado("Densidade Demográfica", carta1.nomePais, carta2.nomePais, carta1.densidadeDemografica, carta2.densidadeDemografica, 0);
+            break;
+
+        default:
+            printf("Opção inválida! Tente novamente.\n");
+            break;
+    }
+
+    return 0;
+}
